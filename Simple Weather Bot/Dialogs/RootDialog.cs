@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using Simple_Weather_Bot.API;
 
 namespace Simple_Weather_Bot.Dialogs
 {
@@ -21,9 +22,12 @@ namespace Simple_Weather_Bot.Dialogs
 
             // calculate something for us to return
             int length = (activity.Text ?? string.Empty).Length;
+            WeatherModel model = await WeatherAPI.GetWeatherInCity(activity.Text);
+     
+            await context.PostAsync($"Temperature in {activity.Text} is " + model.main.getTempInFahrenheit());
 
             // return our reply to the user
-            await context.PostAsync($"You sent {activity.Text} which was {length} characters");
+            await context.PostAsync("Kelvin temp is " + model.main.temp);
 
             context.Wait(MessageReceivedAsync);
         }

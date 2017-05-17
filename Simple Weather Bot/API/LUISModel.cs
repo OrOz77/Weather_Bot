@@ -6,7 +6,7 @@ using System.Web;
 namespace Simple_Weather_Bot.API
 {
 
-    public class Rootobject
+    public class LUISModel
     {
         public string query { get; set; }
         public Topscoringintent topScoringIntent { get; set; }
